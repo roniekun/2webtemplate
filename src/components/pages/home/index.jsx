@@ -3,13 +3,15 @@ import data from './data';
 import { useState, useEffect, useRef} from 'react';
 import {motion} from 'framer-motion'
 import { useNavigate, NavLink } from 'react-router-dom';
-import Slideshow from '../../../assets/slideshow-fade';
+import Carousel from '../../../assets/slideshow-carousel';
 import Socials from '../../../assets/icons/soclals';
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 const Home = ({setColor, color, setBgColor, bgColor, wtColor,btColor}) => {
   const [selected, setSelected] = useState(0);
+  const [width, setWidth] = useState(0);
+  const slides = useRef(null)
   const secta = useRef(null);
   const sectb = useRef(null);
 
@@ -29,9 +31,18 @@ const Home = ({setColor, color, setBgColor, bgColor, wtColor,btColor}) => {
     };
   }, [selected]);
 
-  const handleClick = (index) => {
-    setSelected(index);
-  };
+  useEffect(() => {
+    if (slides.current) {
+      setWidth(slides.current.offsetWidth);
+    }
+    console.log(width);
+  }, [slides.current]);
+  
+  
+  // const handleClick = (index) => {
+  //   setSelected(index);
+  // };
+
   const handlePrevClick = ()=>{
     setSelected((prev) => (prev === 0 ? data.length  - 1 : prev - 1) ) ;
   }
@@ -40,10 +51,12 @@ const Home = ({setColor, color, setBgColor, bgColor, wtColor,btColor}) => {
     setSelected((prev) => (prev ===  data.length-1  ? 0  : prev + 1) ) ;
   }
 
+
   const navigate = useNavigate();
 
   const handleImgClick = (to) =>{
     navigate(to);
+    window.scrollTo(0,0)
   }
 
   const handleExplore = () => {
@@ -117,7 +130,7 @@ const Home = ({setColor, color, setBgColor, bgColor, wtColor,btColor}) => {
     <motion.div
       ref={sectb}
           className={styles.sectb}>
-            <div className={styles.category}>
+            {/* <div className={styles.category}>
               <h5>Category</h5>
               <div className={styles.lists}>
                 {data.map((category, index) => (
@@ -126,15 +139,15 @@ const Home = ({setColor, color, setBgColor, bgColor, wtColor,btColor}) => {
                   </li>
                 ))}
         </div>
-      </div>
+      </div> */}
       <div className={styles.gallery}>
-        <div className={styles.slidesContainer}>
+        <div 
+        className={styles.slidesContainer}>
           {data.map((image, index) => (
-         <Slideshow 
+         <Carousel 
+         ref={slides}
          onClick={()=>handleImgClick(image.to)}
-         containerProps={{ opacity: index === selected ? 1 : 0,
-          transitionDuration: '.7s',
-           zIndex: index === selected ? 1 : -1}}
+         containerProps={{ transform:` translateX(-${width* selected+1}px)`}}
            image={image} key={index}/>
         ) )}
         </div >

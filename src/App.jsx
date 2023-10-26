@@ -39,9 +39,6 @@ const App = ({bgColor,color,setColor,setBgColor ,setToggleMenu, isToggleMenu,wtC
     };
   }, [isMediumScreen,isSmallScreen]);
 
-  console.log (height)
-  console.log (width)
-
   return (
  
     <div

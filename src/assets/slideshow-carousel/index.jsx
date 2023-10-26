@@ -8,8 +8,7 @@ const Carousel = React.forwardRef(({ image, index, containerProps, onClick }, re
       style={{ ...containerProps }}
       ref={ref}
       onClick={onClick}
-      className={styles.imgContainer}
-    >
+      className={styles.imgContainer}>
       <h1>{image.category}</h1>
     </div>
   );

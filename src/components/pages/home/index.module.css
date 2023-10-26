@@ -162,17 +162,25 @@
     .gallery{
         display: flex;
         position: relative;
-        width: 65vw;
+        width: 80%;
         flex-direction: column;
         border-radius: 3px;
         height: 800px;
         justify-content: center;
 
         .slidesContainer{
+            display: flex;
+            overflow: hidden;
             position: relative;
+            flex-direction: row;
             height: 80%;
+            scroll-snap-type:  x mandatory;
             outline: auto lightgray;
+
         }
+        .slidesContainer::-webkit-scrollbar{
+            display: none;
+            }
         .arrowContainer{
             justify-content: space-between;
             position: relative;
@@ -205,12 +213,13 @@
         gap: 50px;
         
         .itemContainer{
-            width: 100%;
+            width: 70%;
+            
         .btnContainer{
             flex-direction: column;
 
           .contact,  .explore{
-                width: 100%;
+                width: 50%;
             }
         }
         }
@@ -267,4 +276,22 @@
 
 }
 }
+}
+
+@media(max-width: 600px){
+    .container{
+        .secta{
+            .itemContainer{
+                width: 100%;
+                
+            .btnContainer{
+                
+              .contact,  .explore{
+                    width: 100%;
+                }
+            }
+            }
+    
+            }
+        }
 }
